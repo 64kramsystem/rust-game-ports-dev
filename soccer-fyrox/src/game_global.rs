@@ -1,12 +1,13 @@
 use std::env;
 
 use fyrox::{
-    dpi::PhysicalSize,
+    dpi::LogicalSize,
     engine::framework::prelude::GameState,
     engine::Engine,
     event::{ElementState, WindowEvent},
     event_loop::ControlFlow,
     scene::camera::{CameraBuilder, OrthographicProjection, Projection},
+    window::Fullscreen,
 };
 
 use crate::prelude::*;
@@ -105,12 +106,9 @@ impl GameGlobal {
     fn preset_window(engine: &Engine) {
         let window = engine.get_window();
 
-        // WATCH OUT! Don't invert this and the following, otherwise, resize won't work.
-        // See https://#github.com/rust-windowing/winit/issues/2306.
-        //
-        window.set_resizable(false);
+        window.set_fullscreen(Some(Fullscreen::Borderless(None)));
 
-        window.set_inner_size(PhysicalSize {
+        window.set_inner_size(LogicalSize {
             width: WIDTH,
             height: HEIGHT,
         });
